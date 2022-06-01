@@ -7,7 +7,6 @@ class twin(object):
         self.inside = a1
         if (isnan(float(a1.a)) or isnan(float(a1.b))) and a2.a == a2.b:
             self.inside = a2
-
         self.external = a2
 
     def inside_width(self):
@@ -21,3 +20,10 @@ class twin(object):
     def Print_result(self):
         print("[ ", self.inside, ", ", self.external, " ]")
 
+class twin_Function(twin):
+    def __init__(self, a1, a2, alpha):
+        super(twin_Function, self).__init__(a1, a2)
+        self.alpha = alpha
+
+    def print_result(self):
+        print("[ ", self.inside, ", ", self.external, self.alpha, " ]")

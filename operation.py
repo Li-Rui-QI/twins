@@ -1,11 +1,8 @@
-from mpmath import mpf
+from intvalpy import Interval, intersection
 from twin import *
 
 
-from intvalpy import Interval, intersection
-
-
-def p (T1:twin,T2:twin):
+def p(T1: twin, T2: twin):
     if T1.inside_width() == -1 and T2.inside_width() == -1:
         return None
     if T1.inside_width() == -1:
@@ -14,7 +11,8 @@ def p (T1:twin,T2:twin):
         return T1.inside.a + T2.external.b
     return min(T1.inside.a + T2.external.b, T2.inside.a + T1.external.b)
 
-def q(T1:twin , T2:twin):
+
+def q(T1: twin, T2: twin):
     if T1.inside_width() == -1 and T2.inside_width() == -1:
         return None
     if T1.inside_width() == -1:
@@ -23,17 +21,19 @@ def q(T1:twin , T2:twin):
         return T1.inside.b + T2.external.a
     return max(T1.inside.b + T2.external.a, T2.inside.b + T1.external.a)
 
-def plus(T1:twin,T2:twin):
+def plus(T1: twin, T2: twin):
     if T1.external_width() <= T2.inside_width() or T2.external_width() <= T1.inside_width():
-        return twin( Interval(p(T1, T2), q(T1, T2)),Interval(T1.external.a + T2.external.a, T1.external.b + T2.external.b))
+        return twin(Interval(p(T1, T2), q(T1, T2)),
+                    Interval(T1.external.a + T2.external.a, T1.external.b + T2.external.b))
     else:
         return twin(
             Interval(None, None),
             Interval(T1.external.a + T2.external.a, T1.external.b + T2.external.b)
         )
 
-def phi(I1,I2):
-    Z = intersection(I1,I2)
+
+def phi(I1, I2):
+    Z = intersection(I1, I2)
     if not (isnan(float(Z.a)) or isnan(float(Z.b))):
         return Interval(None, None)
     elif not isnan(float(Z.a)) and (not isnan(float(Z.b))) and Z.a != Z.b:
@@ -60,11 +60,13 @@ def phi(I1,I2):
 
         return Interval(min_a, min_b)
 
+
 def psi(I1, I2):
     return Interval(
         min(I1.a, I1.b, I2.a, I2.b),
         max(I1.a, I1.b, I2.a, I2.b)
     )
+
 
 def multiply(T1: twin, T2: twin):
     if T1.inside_width() == -1 and T2.inside_width() == -1:
@@ -104,6 +106,7 @@ def multiply(T1: twin, T2: twin):
         ),
         Interval(T1.external.a, T1.external.b) * Interval(T2.external.a, T2.external.b)
     )
+
 
 def unary_minus_twin(T: twin):
     return twin(-T.inside, -T.external)
