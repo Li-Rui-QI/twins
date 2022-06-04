@@ -3,14 +3,14 @@ from operation import *
 
 if __name__ == '__main__':
     # ....................................................................................................
-    T1_a1 = 5
+    T1_a1 = 2
     T1_a2 = 10
     T1_b1 = 1
     T1_b2 = 20
-    T2_a1 = 1
-    T2_a2 = 5
-    T2_b1 = 0
-    T2_b2 = 6
+    T2_a1 = 2
+    T2_a2 = 3
+    T2_b1 = 1
+    T2_b2 = 4
     T3_a1 = 1
     T3_a2 = 5
     T3_b1 = 0
@@ -53,16 +53,26 @@ if __name__ == '__main__':
     D3_alpha = '-'
     D1 = twin_Function(D1_a, D1_b, D1_alpha)
     D1.print_result()
-    # D2 = twin_Function(D2_a, D2_b, D2_alpha)
-    # D2.print_result()
+    D2 = twin_Function(D2_a, D2_b, D2_alpha)
+    D2.print_result()
     # D3 = twin_Function(D3_a, D3_b, D3_alpha)
     # D3.print_result()
+    ### .................................. plus....................................................
+
     # print('D1 + D2')
     # plus_function(D1, D2)
     # print('D2 + D3',gamma(D2,D3))
     # plus_function(D2, D3)
+
+    ### ..................................multiply.........................................................
+    print('multiply')
+    multiply_twin_function(D1,D2).print_result()
+    ###...................................unary.........................................................
+
     # print('unary_minus')
     # unary_minus_twin_function(D2).print_result()
-    print('inverse')
-    inverse_twin_function(D1).print_result()
+
+    ### .................................. inverse....................................................
+    # print('inverse')
+    # inverse_twin_function(D1).print_result()
     # .....................................................................................................
