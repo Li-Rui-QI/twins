@@ -71,13 +71,6 @@ def inverse_twin_function(D: twin_Function):
         return twin_Function(1 / D.inside, 1 / D.external, '-')
 
 
-def S_1(D1: twin_Function, D2: twin_Function):
-    T1 = twin(D1.inside, D1.external)
-    T2 = twin(D2.inside, D2.external)
-    if D1.inside_width() != -1 and D2.inside_width() != -1 and D1.alpha != '0' and D2.alpha != '0':
-        return multiply(T1, T2)
-    pass
-
 # D_1  = (I_1l,I_1,α)= (T_1,α)=([a-,a+ ],[А-,А+ ],α),
 # T-=[I-,Il-]  T+ = [Il+,I+]  I_1l :[a-,a+ ]
 def S_1_multiply(D1: twin_Function, D2: twin_Function):
@@ -87,7 +80,7 @@ def S_1_multiply(D1: twin_Function, D2: twin_Function):
     if (T1.inside_width() == -1 or D1.alpha == '0') and (T2.inside_width() == -1 or D2.alpha == '0'):
         return Interval(T1.external.a, T1.external.b) * Interval(T2.external.a, T2.external.b)
     #I1*T2
-    elif (T1.inside_width() == -1 or D1.alpha == '0') and T2.inside_width() != 1 and D2.alpha !='0':
+    elif (T1.inside_width() == -1 or D1.alpha == '0') and T2.inside_width() != -1 and D2.alpha !='0':
         return Interval(T1.external.a, T1.external.b) * Interval(T2.external.a,T2.inside.a)
     # T1*I2
     elif (T2.inside_width() == -1 or D2.alpha == '0') and T1.inside_width() != -1 and D1.alpha!='0':
@@ -103,7 +96,7 @@ def S_2_multiply(D1: twin_Function, D2: twin_Function):
     if (T1.inside_width() == -1 or D1.alpha == '0') and (T2.inside_width() == -1 or D2.alpha == '0'):
         return Interval(T1.external.a, T1.external.b) * Interval(T2.external.a, T2.external.b)
     #I1 * T2
-    elif (T1.inside_width() == -1 or D1.alpha == '0') and T2.inside_width() != 1 and D2.alpha !='0':
+    elif (T1.inside_width() == -1 or D1.alpha == '0') and T2.inside_width() != -1 and D2.alpha !='0':
         return Interval(T1.external.a, T1.external.b) * Interval(T2.inside.b,T2.external.b)
     # T1 * I2
     elif (T2.inside_width() == -1 or D2.alpha == '0') and T1.inside_width() != -1 and D1.alpha!='0':
@@ -119,7 +112,7 @@ def multiply_twin_function(D1: twin_Function, D2: twin_Function):
     # min1<min2<=max1<max2 or min2<min1<=max2<max1
     if S_1 == None or S_2 == None or S_1 == S_2:
         return twin_Function(Interval(None, None),Interval(min(S_1.a,S_2.a),max(S_2.a,S_2.b)),'0')
-    if (S_1.a < S_2.a and S_2.a <= S_1.b and S_1.b< S_2.b) or (S_2.a < S_1.a and S_1.a <= S_2.b and S_2.b <S_1.b):
+    if (S_1.a < S_2.a <= S_1.b and S_1.b < S_2.b) or (S_2.a < S_1.a and S_1.a <= S_2.b and S_2.b < S_1.b):
         return twin_Function(Interval(None, None),Interval(min(S_1.a,S_2.a),max(S_2.a,S_2.b)),'0')
     elif S_1.b <= S_2.a:
         return twin_Function(Interval(S_1.b,S_2.a),Interval(S_1.a,S_2.b),'+')
