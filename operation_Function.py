@@ -88,10 +88,10 @@ def S_1_multiply(D1: twin_Function, D2: twin_Function):
         return Interval(T1.external.a, T1.external.b) * Interval(T2.external.a, T2.external.b)
     #I1*T2
     elif (T1.inside_width() == -1 or D1.alpha == '0') and T2.inside_width() != 1 and D2.alpha !='0':
-        return Interval(T1.external.a, T1.external.b) *  Interval(T2.external.a,T2.inside.a)
+        return Interval(T1.external.a, T1.external.b) * Interval(T2.external.a,T2.inside.a)
     # T1*I2
     elif (T2.inside_width() == -1 or D2.alpha == '0') and T1.inside_width() != -1 and D1.alpha!='0':
-        return Interval(T1.external.a,T1.inside.a)*Interval(T2.external.a, T2.external.b)
+        return Interval(T1.external.a,T1.inside.a) * Interval(T2.external.a, T2.external.b)
     # T1*T2
     elif T2.inside_width() != -1 and D2.alpha != '0' and T1.inside_width() != -1 and D1.alpha!='0':
         return Interval(T1.external.a,T1.inside.a) * Interval(T2.external.a,T2.inside.a)
@@ -117,9 +117,11 @@ def multiply_twin_function(D1: twin_Function, D2: twin_Function):
     S_1 = S_1_multiply(D1, D2)
     S_2 = S_2_multiply(D1, D2)
     # min1<min2<=max1<max2 or min2<min1<=max2<max1
-    if S_1.a < S_2.a <= S_1.b <S_2.b or S_2.a < S_1.a <= S_2.b <S_1.b:
+    if S_1 == None or S_2 == None or S_1 == S_2:
         return twin_Function(Interval(None, None),Interval(min(S_1.a,S_2.a),max(S_2.a,S_2.b)),'0')
-    if S_1.b <= S_2.a:
+    if (S_1.a < S_2.a and S_2.a <= S_1.b and S_1.b< S_2.b) or (S_2.a < S_1.a and S_1.a <= S_2.b and S_2.b <S_1.b):
+        return twin_Function(Interval(None, None),Interval(min(S_1.a,S_2.a),max(S_2.a,S_2.b)),'0')
+    elif S_1.b <= S_2.a:
         return twin_Function(Interval(S_1.b,S_2.a),Interval(S_1.a,S_2.b),'+')
-    if S_1.a >= S_2.b:
+    elif S_1.a >= S_2.b:
         return twin_Function(Interval(S_2.b,S_1.a),Interval(S_2.a,S_1.b),'-')

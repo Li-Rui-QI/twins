@@ -42,9 +42,11 @@ if __name__ == '__main__':
 
     # ....................................................................................................
     print('function plus')
-    D1_a = Interval(T1_a1, T1_a2)
+    # D1_a = Interval(T1_a1, T1_a2)
+    D1_a = Interval(None, None)
     D1_b = Interval(T1_b1, T1_b2)
-    D2_a = Interval(T2_a1, T2_a2)
+    # D2_a = Interval(T2_a1, T2_a2)
+    D2_a = Interval(None,None)
     D2_b = Interval(T2_b1, T2_b2)
     D3_a = Interval(T3_a1, T3_a2)
     D3_b = Interval(T3_b1, T3_b2)
@@ -66,6 +68,8 @@ if __name__ == '__main__':
 
     ### ..................................multiply.........................................................
     print('multiply')
+    print(S_1_multiply(D1,D2))
+    print(S_2_multiply(D1,D2))
     multiply_twin_function(D1,D2).print_result()
     ###...................................unary.........................................................
 
